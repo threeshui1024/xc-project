@@ -1,4 +1,4 @@
-package com.xc.content.model.service;
+package com.xc.content.service;
 
 import com.xc.content.model.po.Teachplan;
 import com.baomidou.mybatisplus.extension.service.IService;

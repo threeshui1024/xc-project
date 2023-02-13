@@ -1,4 +1,4 @@
-package com.xc.content.model.mapper;
+package com.xc.content.mapper;
 
 import com.xc.content.model.po.TeachplanMedia;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

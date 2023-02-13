@@ -1,9 +1,9 @@
-package com.xc.content.model.service.impl;
+package com.xc.content.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.xc.content.model.mapper.CourseMarketMapper;
+import com.xc.content.mapper.CourseMarketMapper;
 import com.xc.content.model.po.CourseMarket;
-import com.xc.content.model.service.CourseMarketService;
+import com.xc.content.service.CourseMarketService;
 import org.springframework.stereotype.Service;
 
 /**

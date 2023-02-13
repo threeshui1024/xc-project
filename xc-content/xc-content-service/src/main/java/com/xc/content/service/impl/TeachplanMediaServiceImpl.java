@@ -1,9 +1,9 @@
-package com.xc.content.model.service.impl;
+package com.xc.content.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.xc.content.model.mapper.TeachplanMediaMapper;
+import com.xc.content.mapper.TeachplanMediaMapper;
 import com.xc.content.model.po.TeachplanMedia;
-import com.xc.content.model.service.TeachplanMediaService;
+import com.xc.content.service.TeachplanMediaService;
 import org.springframework.stereotype.Service;
 
 /**
