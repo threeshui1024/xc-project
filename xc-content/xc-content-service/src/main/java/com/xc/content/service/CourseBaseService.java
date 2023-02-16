@@ -3,8 +3,11 @@ package com.xc.content.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.xc.base.model.PageParams;
 import com.xc.base.model.PageResult;
+import com.xc.content.model.dto.AddCourseDto;
+import com.xc.content.model.dto.CourseBaseInfoDto;
 import com.xc.content.model.dto.QueryCourseParamsDto;
 import com.xc.content.model.po.CourseBase;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
 * @author DELL
@@ -20,5 +23,13 @@ public interface CourseBaseService extends IService<CourseBase> {
      * @return
      */
     PageResult<CourseBase> queryCourseBaseList(PageParams pageParams, QueryCourseParamsDto queryCourseParamsDto);
+
+    /**
+     * 新增课程
+     * @param companyId 教学机构id
+     * @param addCourseDto 课程基本信息
+     * @return
+     */
+    CourseBaseInfoDto createCourseBase(Long companyId, AddCourseDto addCourseDto);
 
 }
