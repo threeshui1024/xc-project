@@ -1,8 +1,11 @@
 package com.xc.content.mapper;
 
+import com.xc.content.model.dto.TeachplanDto;
 import com.xc.content.model.po.Teachplan;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
 * @author DELL
@@ -12,6 +15,13 @@ import org.apache.ibatis.annotations.Mapper;
 */
 @Mapper
 public interface TeachplanMapper extends BaseMapper<Teachplan> {
+
+    /**
+     * 查询某课程的课程计划，组成树型结构
+     * @param courseId
+     * @return
+     */
+    public List<TeachplanDto> selectTreeNodes(long courseId);
 
 }
 

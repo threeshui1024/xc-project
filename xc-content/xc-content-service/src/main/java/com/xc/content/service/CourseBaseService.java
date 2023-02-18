@@ -5,8 +5,10 @@ import com.xc.base.model.PageParams;
 import com.xc.base.model.PageResult;
 import com.xc.content.model.dto.AddCourseDto;
 import com.xc.content.model.dto.CourseBaseInfoDto;
+import com.xc.content.model.dto.EditCourseDto;
 import com.xc.content.model.dto.QueryCourseParamsDto;
 import com.xc.content.model.po.CourseBase;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
@@ -31,5 +33,20 @@ public interface CourseBaseService extends IService<CourseBase> {
      * @return
      */
     CourseBaseInfoDto createCourseBase(Long companyId, AddCourseDto addCourseDto);
+
+    /**
+     * 查询刚刚插入的课程的基本信息和营销信息
+     * @param courseId 课程id
+     * @return
+     */
+    CourseBaseInfoDto getCourseBaseInfo(long courseId);
+
+    /**
+     * 修改课程基本信息和营销信息
+     * @param companyId 机构id
+     * @param dto 课程信息
+     * @return
+     */
+    CourseBaseInfoDto modifyCourseBase(Long companyId, EditCourseDto dto);
 
 }
