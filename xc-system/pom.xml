@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>xc-parent</artifactId>
+        <groupId>com.xc</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../xc-parent</relativePath>
+    </parent>
+    <artifactId>xc-system</artifactId>
+    <name>xc-system</name>
+    <description>xc-system</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>xc-system-api</module>
+        <module>xc-system-service</module>
+        <module>xc-system-model</module>
+    </modules>
+</project>
