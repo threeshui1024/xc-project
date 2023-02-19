@@ -6,16 +6,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.xc.base.execption.XcException;
 import com.xc.base.model.PageParams;
 import com.xc.base.model.PageResult;
-import com.xc.content.mapper.CourseBaseMapper;
-import com.xc.content.mapper.CourseCategoryMapper;
-import com.xc.content.mapper.CourseMarketMapper;
+import com.xc.content.mapper.*;
 import com.xc.content.model.dto.AddCourseDto;
 import com.xc.content.model.dto.CourseBaseInfoDto;
 import com.xc.content.model.dto.EditCourseDto;
 import com.xc.content.model.dto.QueryCourseParamsDto;
-import com.xc.content.model.po.CourseBase;
-import com.xc.content.model.po.CourseCategory;
-import com.xc.content.model.po.CourseMarket;
+import com.xc.content.model.po.*;
 import com.xc.content.service.CourseBaseService;
 import com.xc.content.service.CourseMarketService;
 import org.apache.commons.lang.StringUtils;
@@ -47,6 +43,15 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
 
     @Autowired
     private CourseMarketService courseMarketService;
+
+    @Autowired
+    private TeachplanMapper teachplanMapper;
+
+    @Autowired
+    private CourseTeacherMapper courseTeacherMapper;
+
+    @Autowired
+    private TeachplanMediaMapper teachplanMediaMapper;
 
     public PageResult<CourseBase> queryCourseBaseList(PageParams pageParams, QueryCourseParamsDto queryCourseParamsDto){
 
@@ -181,6 +186,38 @@ public class CourseBaseServiceImpl extends ServiceImpl<CourseBaseMapper, CourseB
         this.saveCourseMarket(courseMarket);
 
         return getCourseBaseInfo(courseId);
+    }
+
+    @Transactional
+    @Override
+    public void deleteCourseBase(Long courseId) {
+        //删除课程需要删除课程相关的基本信息、营销信息、课程计划、课程教师信息。
+        //课程的审核状态为未提交时方可删除
+        CourseBase courseBase = courseBaseMapper.selectById(courseId);
+        String status = courseBase.getAuditStatus();
+        if (!status.equals("202002")){
+            throw new XcException("只能删除审核状态为未提交的课程");
+        }
+        //1.删除基本信息
+        courseBaseMapper.deleteById(courseId);
+
+        //2.删除营销信息
+        courseMarketMapper.deleteById(courseId);
+
+        //3.删除课程计划
+        LambdaQueryWrapper<Teachplan> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Teachplan::getCourseId, courseId);
+        teachplanMapper.delete(queryWrapper);
+
+        //4.删除课程计划资源表
+        LambdaQueryWrapper<TeachplanMedia> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(TeachplanMedia::getCourseId, courseId);
+        teachplanMediaMapper.delete(lambdaQueryWrapper);
+
+        //5.删除课程教师信息
+        LambdaQueryWrapper<CourseTeacher> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(CourseTeacher::getCourseId, courseId);
+        courseTeacherMapper.delete(wrapper);
     }
 }
 

@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: system-service
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+      discovery:
+        namespace: f04576a4-a944-4218-8e20-63c00338b161
+        group: xuecheng-plus-project
+      config:
+        namespace: f04576a4-a944-4218-8e20-63c00338b161
+        group: xuecheng-plus-project
+        file-extension: yaml
+        refresh-enabled: true
+
+  #profiles默认为dev
+  profiles:
+    active: dev

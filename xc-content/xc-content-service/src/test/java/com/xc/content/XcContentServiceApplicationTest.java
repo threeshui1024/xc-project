@@ -25,7 +25,7 @@ class XcContentServiceApplicationTest {
 
     @Test
     void testCourseBaseMapper(){
-        CourseBase courseBase = courseBaseMapper.selectById(22);
+        CourseBase courseBase = courseBaseMapper.selectById(120);
         Assertions.assertNotNull(courseBase);
     }
 

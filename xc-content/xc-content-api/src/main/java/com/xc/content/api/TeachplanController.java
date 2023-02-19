@@ -40,4 +40,31 @@ public class TeachplanController {
     public void saveTeachplan(@RequestBody SaveTeachplanDto dto){
         teachplanService.saveTeachplan(dto);
     }
+
+    /**
+     * 根据id删除课程计划
+     * @param id
+     */
+    @DeleteMapping("/teachplan/{id}")
+    public void deleteTeachplan(@PathVariable Long id){
+        teachplanService.deleteTeachplan(id);
+    }
+
+    /**
+     * 向上移动
+     * @param id
+     */
+    @PostMapping("/teachplan/moveup/{id}")
+    public void moveup(@PathVariable Long id){
+        teachplanService.moveup(id);
+    }
+
+    /**
+     * 向下移动
+     * @param id
+     */
+    @PostMapping("/teachplan/movedown/{id}")
+    public void movedown(@PathVariable Long id){
+        teachplanService.movedown(id);
+    }
 }

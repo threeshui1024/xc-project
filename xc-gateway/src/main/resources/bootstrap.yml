@@ -1,0 +1,22 @@
+#?????
+spring:
+  application:
+    name: gateway
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+      discovery:
+        namespace: f04576a4-a944-4218-8e20-63c00338b161
+        group: xuecheng-plus-project
+      config:
+        namespace: f04576a4-a944-4218-8e20-63c00338b161
+        group: xuecheng-plus-project
+        file-extension: yaml
+        refresh-enabled: true
+        shared-configs:
+          - data-id: logging-${spring.profiles.active}.yaml
+            group: xuecheng-plus-common
+            refresh: true
+
+  profiles:
+    active: dev

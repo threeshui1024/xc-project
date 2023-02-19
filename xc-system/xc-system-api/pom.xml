@@ -12,6 +12,15 @@
     <description>xc-system-api</description>
 
     <dependencies>
+        <!--添加Nacos 注册中心-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.xc</groupId>
             <artifactId>xc-system-model</artifactId>

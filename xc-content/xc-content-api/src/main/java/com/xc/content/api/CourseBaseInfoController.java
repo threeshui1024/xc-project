@@ -73,5 +73,14 @@ public class CourseBaseInfoController {
         return courseBaseService.modifyCourseBase(22L, dto);
     }
 
+    /**
+     * 删除课程信息
+     * @param courseId
+     */
+    @DeleteMapping("/course/{courseId}")
+    public void deleteCourseBase(@PathVariable Long courseId){
+        courseBaseService.deleteCourseBase(courseId);
+    }
+
 
 }

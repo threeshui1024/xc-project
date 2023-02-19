@@ -1,0 +1,26 @@
+#微服务配置
+spring:
+  application:
+    name: media-api
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+      discovery:
+        namespace: f04576a4-a944-4218-8e20-63c00338b161
+        group: xuecheng-plus-project
+      config:
+        namespace: f04576a4-a944-4218-8e20-63c00338b161
+        group: xuecheng-plus-project
+        file-extension: yaml
+        refresh-enabled: true
+        extension-configs:
+          - data-id: media-service-${spring.profiles.active}.yaml
+            group: xuecheng-plus-project
+            refresh: true
+        shared-configs:
+          - data-id: swagger-${spring.profiles.active}.yaml
+            group: xuecheng-plus-common
+            refresh: true
+  profiles:
+    active: dev
+
