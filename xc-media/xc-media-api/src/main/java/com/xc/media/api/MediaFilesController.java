@@ -3,6 +3,7 @@ package com.xc.media.api;
 import com.xc.base.execption.XcException;
 import com.xc.base.model.PageParams;
 import com.xc.base.model.PageResult;
+import com.xc.base.model.RestResponse;
 import com.xc.media.model.dto.QueryMediaParamsDto;
 import com.xc.media.model.dto.UploadFileParamsDto;
 import com.xc.media.model.dto.UploadFileResultDto;
@@ -42,7 +43,7 @@ public class MediaFilesController {
     @ApiOperation("媒资列表查询接口")
     @PostMapping("/files")
     public PageResult<MediaFiles> list(PageParams pageParams, @RequestBody QueryMediaParamsDto queryMediaParamsDto) {
-        Long companyId = 1232141425L;
+        Long companyId = 22L;
         return mediaFileService.queryMediaFiels(companyId, pageParams, queryMediaParamsDto);
     }
 
@@ -81,6 +82,18 @@ public class MediaFilesController {
         }
 
         return uploadFileResultDto;
+    }
+
+    /**
+     * 文件预览开发
+     * @param mediaId
+     * @return
+     */
+    @ApiOperation("预览文件")
+    @GetMapping("/preview/{mediaId}")
+    public RestResponse<String> getPlayUrlByMediaId(@PathVariable String mediaId){
+        MediaFiles mediaFiles = mediaFileService.getFileById(mediaId);
+        return RestResponse.success(mediaFiles.getUrl());
     }
 
 }
