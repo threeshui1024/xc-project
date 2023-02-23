@@ -9,10 +9,12 @@ import com.xc.base.model.PageParams;
 import com.xc.base.model.PageResult;
 import com.xc.base.model.RestResponse;
 import com.xc.media.mapper.MediaFilesMapper;
+import com.xc.media.mapper.MediaProcessMapper;
 import com.xc.media.model.dto.QueryMediaParamsDto;
 import com.xc.media.model.dto.UploadFileParamsDto;
 import com.xc.media.model.dto.UploadFileResultDto;
 import com.xc.media.model.po.MediaFiles;
+import com.xc.media.model.po.MediaProcess;
 import com.xc.media.service.MediaFileService;
 import io.minio.*;
 import io.minio.errors.*;
@@ -50,6 +52,9 @@ public class MediaFileServiceImpl implements MediaFileService {
 
     @Autowired
     MinioClient minioClient;
+
+    @Autowired
+    private MediaProcessMapper mediaProcessMapper;
 
     //普通文件存储的桶
     @Value("${minio.bucket.files}")
@@ -159,13 +164,22 @@ public class MediaFileServiceImpl implements MediaFileService {
             if (mimeType.indexOf("image") >= 0 || mimeType.indexOf("mp4") >= 0) {
                 mediaFiles.setUrl("/" + bucket + "/" + objectName);
             }
-
             mediaFiles.setCreateDate(LocalDateTime.now());
             mediaFiles.setStatus("1");
             mediaFiles.setAuditStatus("002003");
-
             //插入文件表
             mediaFilesMapper.insert(mediaFiles);
+
+            //将avi视频添加到待处理任务表
+            if (mimeType.equals("video/x-msvideo")){
+                MediaProcess mediaProcess = new MediaProcess();
+                BeanUtils.copyProperties(mediaFiles, mediaProcess);
+                //设置一个状态
+                mediaProcess.setStatus("1");//未处理
+                mediaProcessMapper.insert(mediaProcess);
+            }
+
+
         }
         return mediaFiles;
     }
@@ -400,7 +414,7 @@ public class MediaFileServiceImpl implements MediaFileService {
      * @param bucket
      * @param objectName
      */
-    private void addMediaFilesToMinIO(String filePath, String bucket, String objectName){
+    public void addMediaFilesToMinIO(String filePath, String bucket, String objectName){
         try {
             UploadObjectArgs uploadObjectArgs = UploadObjectArgs.builder()
                     .bucket(bucket)

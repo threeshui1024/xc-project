@@ -10,6 +10,8 @@ import com.xc.media.model.po.MediaFiles;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.File;
+
 /**
  * @author Mr.M
  * @version 1.0
@@ -90,5 +92,22 @@ public interface MediaFileService {
      * @param id
      * @return
      */
-    public MediaFiles getFileById(String id);
+    MediaFiles getFileById(String id);
+
+    /**
+     * 下载分块文件
+     * @param file
+     * @param bucket
+     * @param objectName
+     * @return
+     */
+    File downloadFileFromMinIO(File file, String bucket, String objectName);
+
+    /**
+     * 将合并后的文件上传到文件系统
+     * @param filePath
+     * @param bucket
+     * @param objectName
+     */
+    void addMediaFilesToMinIO(String filePath, String bucket, String objectName);
 }
