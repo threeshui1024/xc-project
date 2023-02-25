@@ -1,7 +1,9 @@
 package com.xc.content.api;
 
+import com.xc.content.model.dto.BindTeachplanMediaDto;
 import com.xc.content.model.dto.SaveTeachplanDto;
 import com.xc.content.model.dto.TeachplanDto;
+import com.xc.content.model.po.TeachplanMedia;
 import com.xc.content.service.TeachplanService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -66,5 +68,25 @@ public class TeachplanController {
     @PostMapping("/teachplan/movedown/{id}")
     public void movedown(@PathVariable Long id){
         teachplanService.movedown(id);
+    }
+
+    /**
+     * 课程计划和媒资信息绑定
+     * @param bindTeachplanMediaDto
+     */
+    @ApiOperation(value = "课程计划和媒资信息绑定")
+    @PostMapping("/teachplan/association/media")
+    public void associationMedia(@RequestBody BindTeachplanMediaDto bindTeachplanMediaDto){
+        teachplanService.associationMedia(bindTeachplanMediaDto);
+    }
+
+    /**
+     * 删除教学计划与媒资之间的绑定关系
+     * @param teachPlanId 教学计划Id
+     * @param mediaId 媒资文件Id
+     */
+    @DeleteMapping("/teachplan/association/media/{teachPlanId}/{mediaId}")
+    public void deleteAssociationMedia(@PathVariable Long teachPlanId, @PathVariable String mediaId){
+        teachplanService.deleteAssociationMedia(teachPlanId, mediaId);
     }
 }

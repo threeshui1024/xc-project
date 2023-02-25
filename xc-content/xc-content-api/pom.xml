@@ -10,6 +10,10 @@
     <artifactId>xc-content-api</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
+        </dependency>
         <!--添加Nacos 注册中心-->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
